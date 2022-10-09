@@ -100,8 +100,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _position: {x: 0, y: 0}
+  _unit: {fileID: 0}
+  _haveUnit: 0
   _gameObject: {fileID: 3584132364477102244}
-  _pointerEnter: 0
+  _transform: {fileID: 9032033532539985664}
 --- !u!114 &-5181912369473473077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,6 +120,10 @@ MonoBehaviour:
   _enterColor: {r: 0.9811321, g: 0.06941971, b: 0.06941971, a: 1}
   _selectColor: {r: 0.14019708, g: 0.4245283, b: 0.01802242, a: 1}
   _selectEnterColor: {r: 0, g: 0.030314207, b: 1, a: 1}
+  _movingColor: {r: 0.2784314, g: 0, b: 0.43529412, a: 1}
+  _movingEnterColor: {r: 0.03773582, g: 0.03773582, b: 0.03773582, a: 1}
+  _attackColor: {r: 1, g: 1, b: 0, a: 1}
+  _attackEnterColor: {r: 0, g: 0, b: 0, a: 1}
   _spriteRenderer: {fileID: 4087747179934626189}
   _cell: {fileID: 4839744248841826554}
 --- !u!61 &5081733800530003242

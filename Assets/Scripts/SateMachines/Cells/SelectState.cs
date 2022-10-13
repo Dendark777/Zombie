@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.SateMachines.Cell;
+﻿using Assets.Scripts.MonoBehaviors.Cells;
+using Assets.Scripts.SateMachines.Cells;
 using System;
 using System.Collections.Generic;
 using System.Linq;

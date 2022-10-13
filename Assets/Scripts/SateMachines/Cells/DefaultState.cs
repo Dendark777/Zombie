@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.SateMachines.Cell;
+﻿using Assets.Scripts.MonoBehaviors.Cells;
+using Assets.Scripts.SateMachines.Cells;
 using Mono.Cecil.Cil;
 using System.Collections;
 using UnityEditorInternal;

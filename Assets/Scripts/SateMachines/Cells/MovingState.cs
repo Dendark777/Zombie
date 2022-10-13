@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine.EventSystems;
+using Assets.Scripts.MonoBehaviors.Cells;
 
-namespace Assets.Scripts.SateMachines.Cell
+namespace Assets.Scripts.SateMachines.Cells
 {
     public class MovingState : IState
     {

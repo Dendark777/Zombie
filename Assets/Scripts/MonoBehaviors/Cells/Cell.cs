@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Assets.Scripts.MonoBehaviors.Units;
+using Assets.Scripts.SateMachines.Cells;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 
-namespace Assets.Scripts.SateMachines.Cell
+namespace Assets.Scripts.MonoBehaviors.Cells
 {
     public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {

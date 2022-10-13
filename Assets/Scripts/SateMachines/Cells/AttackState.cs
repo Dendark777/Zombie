@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Assets.Scripts.MonoBehaviors.Cells;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine.EventSystems;
 
-namespace Assets.Scripts.SateMachines.Cell
+namespace Assets.Scripts.SateMachines.Cells
 {
     public class AttackState : IState
     {

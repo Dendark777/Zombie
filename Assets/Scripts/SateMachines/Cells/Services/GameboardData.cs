@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.SateMachines.Cell;
+﻿using Assets.Scripts.MonoBehaviors.Cells;
+using Assets.Scripts.MonoBehaviors.Units;
+using Assets.Scripts.SateMachines.Cells;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -73,7 +75,7 @@ public class GameboardData : MonoBehaviour
         }
     }
 
-    private List<Cell> SetMovingCells(Vector2Int unitPosition, Vector2Int[] moves, Vector2Int[] attackMoves)
+    private List<Cell> SetMovingCells(Vector2Int unitPosition, List<Vector2Int> moves, List<Vector2Int> attackMoves)
     {
         List<Cell> cells = new List<Cell>();
         foreach (var move in moves)

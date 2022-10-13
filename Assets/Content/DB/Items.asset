@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aa4252f2ce64644a8cf230d8bedc9c3, type: 3}
+  m_Name: Items
+  m_EditorClassIdentifier: 
+  itemsList:
+  - <Name>k__BackingField: "\u041A\u043E\u043B\u044C\u0442"
+    <MinRadius>k__BackingField: 0
+    <MaxRadius>k__BackingField: 0
+  - <Name>k__BackingField: "\u041F\u0438\u0441\u0442\u043E\u043B\u0435\u0442"
+    <MinRadius>k__BackingField: 1
+    <MaxRadius>k__BackingField: 5
+  currentItem:
+    <Name>k__BackingField: "\u041F\u0438\u0441\u0442\u043E\u043B\u0435\u0442"
+    <MinRadius>k__BackingField: 1
+    <MaxRadius>k__BackingField: 5

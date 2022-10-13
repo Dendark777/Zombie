@@ -1,3 +1,4 @@
+using Assets.Scripts.Editors;
 using Assets.Scripts.MonoBehaviors.Cells;
 using Assets.Scripts.SateMachines.Cells;
 using System;
@@ -15,6 +16,10 @@ namespace Assets.Scripts.MonoBehaviors.Units
         [SerializeField] private List<Vector2Int> _moves;
         [SerializeField] private List<Vector2Int> _attackMoves;
 
+
+        [SerializeField] private ItemDatabase _itemDatabase;
+        [SerializeField] private Item _currentItem;
+        private int currentIndex = 0;
 
         [SerializeField] private Cell _cell;
 
@@ -35,6 +40,8 @@ namespace Assets.Scripts.MonoBehaviors.Units
 
         private void Awake()
         {
+            _currentItem = _itemDatabase[currentIndex];
+            CalculationAttack();
             CalculationMove();
         }
 
@@ -58,6 +65,26 @@ namespace Assets.Scripts.MonoBehaviors.Units
                 _moves.Add(new Vector2Int(i, -1 * i));
             }
         }
+        private void CalculationAttack()
+        {
+            AttackMoves.Clear();
+            for (int f = 0; f < 2; f++)
+            {
+
+                for (int i = _currentItem.MinRadius; i <= _currentItem.MaxRadius; i++)
+                {
+                    _attackMoves.Add(new Vector2Int(i * znak[f], 0));
+                    _attackMoves.Add(new Vector2Int(0, i * znak[f]));
+                }
+            }
+            for (int i = 1; i <= _currentItem.MaxRadius/2; i++)
+            {
+                _attackMoves.Add(new Vector2Int(i, i));
+                _attackMoves.Add(new Vector2Int(-1 * i, -1 * i));
+                _attackMoves.Add(new Vector2Int(-1 * i, i));
+                _attackMoves.Add(new Vector2Int(i, -1 * i));
+            }
+        }
 
         public void FindCell()
         {
@@ -73,6 +100,12 @@ namespace Assets.Scripts.MonoBehaviors.Units
                 cell.SetUnit(this);
                 _cell = cell;
             }
+        }
+
+        public void NextItem()
+        {
+            _currentItem = _itemDatabase.GetNext();
+            CalculationAttack();
         }
 
         public void Initialize(Cell cell)

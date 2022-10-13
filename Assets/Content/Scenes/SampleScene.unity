@@ -46339,6 +46339,10 @@ PrefabInstance:
       propertyPath: _cell
       value: 
       objectReference: {fileID: 196787197}
+    - target: {fileID: 5818862668214756643, guid: c046e52cf38e7ae418ed9afc7c828021, type: 3}
+      propertyPath: _actionCount
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8852713978307646700, guid: c046e52cf38e7ae418ed9afc7c828021, type: 3}
       propertyPath: m_Name
       value: Unit (5)

@@ -103,6 +103,7 @@ MonoBehaviour:
   _attackMoves:
   - {x: 1, y: 1}
   - {x: 2, y: 2}
+  _itemDatabase: {fileID: 11400000, guid: 0b1817e7cba1a274e8cbcb70044cf9c6, type: 2}
   _cell: {fileID: 0}
   _spacing: 0
   _ganeObject: {fileID: 8852713978307646700}

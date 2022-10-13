@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Scripts.MonoBehaviors
+namespace Assets.Scripts.Editors
 {
     [CustomEditor(typeof(Unit))]
     public class UnitEditor : Editor
@@ -19,6 +19,10 @@ namespace Assets.Scripts.MonoBehaviors
             if (GUILayout.Button("Initialize"))
             {
                 unit.FindCell();
+            }
+            if (GUILayout.Button("Next Item"))
+            {
+                unit.NextItem();
             }
         }
         [MenuItem("Tools/Initialize units")]

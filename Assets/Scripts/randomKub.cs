@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class randomKub : MonoBehaviour, IPointerClickHandler
 {
+    public int rezult;
     public List<int> allChisla;
     public int componentInSecond;
     public int now = 0;
@@ -42,6 +43,7 @@ public class randomKub : MonoBehaviour, IPointerClickHandler
         if (startCub == true)
         {
             this.GetComponent<Image>().sprite = Resources.Load<Sprite>("Images/kub/" + allChisla[now]);
+            this.rezult = allChisla[now];
             now++;
             if (now == allChisla.Count) now = 0;
             System.Threading.Thread.Sleep(componentInSecond);

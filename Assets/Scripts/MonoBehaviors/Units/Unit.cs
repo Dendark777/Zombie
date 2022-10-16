@@ -19,7 +19,6 @@ namespace Assets.Scripts.MonoBehaviors.Units
 
         [SerializeField] private ItemDatabase _itemDatabase;
         [SerializeField] private Item _currentItem;
-        private int currentIndex = 0;
 
         [SerializeField] private Cell _cell;
 
@@ -40,7 +39,7 @@ namespace Assets.Scripts.MonoBehaviors.Units
 
         private void Awake()
         {
-            _currentItem = _itemDatabase[currentIndex];
+            _currentItem = _itemDatabase.GetNext();
             CalculationAttack();
             CalculationMove();
         }

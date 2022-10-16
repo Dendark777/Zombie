@@ -10,6 +10,7 @@ public class DefaultState : IState
 {
     private readonly StateMachine _stateMachine;
     private readonly Cell _cell;
+    
     public DefaultState(StateMachine stateMachine, Cell cell)
     {
         _stateMachine = stateMachine;

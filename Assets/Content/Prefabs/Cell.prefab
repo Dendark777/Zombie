@@ -122,7 +122,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3584132364477102244}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7073c0addb2a1d44bc923b649fbefd8, type: 3}
+  m_Script: {fileID: 11500000, guid: 12f28561fe7e02e46aa8ee0dc443ddf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _position: {x: 0, y: 0}
@@ -130,6 +130,7 @@ MonoBehaviour:
   _haveUnit: 0
   _gameObject: {fileID: 3584132364477102244}
   _transform: {fileID: 9032033532539985664}
+  _states: 
 --- !u!114 &6051752645511850264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,7 +140,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3584132364477102244}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99c9fcbbef19c7941ae41aaf684d1b03, type: 3}
+  m_Script: {fileID: 11500000, guid: 9872eed09f73e094aae5b01d90192832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _defaultColor: {r: 1, g: 1, b: 1, a: 1}
@@ -147,7 +148,7 @@ MonoBehaviour:
   _selectColor: {r: 0, g: 0.78431374, b: 0, a: 1}
   _selectEnterColor: {r: 0, g: 0.39607844, b: 0, a: 1}
   _movingColor: {r: 0, g: 0, b: 1, a: 1}
-  _movingEnterColor: {r: 0, g: 0, b: 0.79607844, a: 1}
+  _movingEnterColor: {r: 0, g: 0, b: 0.78431374, a: 1}
   _attackColor: {r: 1, g: 0, b: 0, a: 1}
   _attackEnterColor: {r: 0.78431374, g: 0, b: 0, a: 1}
   _spriteRenderer: {fileID: 4087747179934626189}

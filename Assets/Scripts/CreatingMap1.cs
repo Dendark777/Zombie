@@ -5,6 +5,7 @@ public class CreatingMap1 : MonoBehaviour
 {
     public int shoiseMap;
 
+
     void Start()
     {
         shoiseMap = 1;
@@ -56,7 +57,9 @@ public class CreatingMap1 : MonoBehaviour
             BoardGrid.GetInstance().Cells[165].GetComponent<ContentTail>().content.Add(Content.doorUp);
             BoardGrid.GetInstance().Cells[166].GetComponent<ContentTail>().content.Add(Content.doorDown);
             BoardGrid.GetInstance().Cells[212].GetComponent<ContentTail>().content.Add(Content.doorUp);
-            BoardGrid.GetInstance().Cells[213].GetComponent<ContentTail>().content.Add(Content.doorDown); 
+            BoardGrid.GetInstance().Cells[213].GetComponent<ContentTail>().content.Add(Content.doorUp);
+            BoardGrid.GetInstance().Cells[213].GetComponent<ContentTail>().content.Add(Content.doorDown);
+            BoardGrid.GetInstance().Cells[214].GetComponent<ContentTail>().content.Add(Content.doorDown);
             BoardGrid.GetInstance().Cells[247].GetComponent<ContentTail>().content.Add(Content.doorUp);
             BoardGrid.GetInstance().Cells[248].GetComponent<ContentTail>().content.Add(Content.doorDown);
             #endregion
@@ -172,7 +175,7 @@ public class CreatingMap1 : MonoBehaviour
             BoardGrid.GetInstance().Cells[214].GetComponent<ContentTail>().content.Add(Content.wallRight);
             BoardGrid.GetInstance().Cells[314].GetComponent<ContentTail>().content.Add(Content.wallLeft);
             BoardGrid.GetInstance().Cells[294].GetComponent<ContentTail>().content.Add(Content.wallRight);
-            for (int i = 132; i <= 338; i += 20)
+            for (int i = 132; i <= 192; i += 20)
             {
                 BoardGrid.GetInstance().Cells[i].GetComponent<ContentTail>().content.Add(Content.wallUp);
                 BoardGrid.GetInstance().Cells[i + 1].GetComponent<ContentTail>().content.Add(Content.wallDown);
@@ -235,7 +238,7 @@ public class CreatingMap1 : MonoBehaviour
             {
                 BoardGrid.GetInstance().Cells[i].GetComponent<ContentTail>().content.Add(Content.barrier);
             }
-            for (int i = 208; i < 210; i++)
+            for (int i = 208; i <= 210; i++)
             {
                 BoardGrid.GetInstance().Cells[i].GetComponent<ContentTail>().content.Add(Content.barrier);
             }
@@ -244,11 +247,11 @@ public class CreatingMap1 : MonoBehaviour
                 BoardGrid.GetInstance().Cells[i].GetComponent<ContentTail>().content.Add(Content.barrier);
             }
             //работа
-            for (int i = 136; i < 138; i++)
+            for (int i = 136; i <= 138; i++)
             {
                 BoardGrid.GetInstance().Cells[i].GetComponent<ContentTail>().content.Add(Content.barrier);
             }
-            for (int i = 194; i < 198; i++)
+            for (int i = 194; i <= 198; i++)
             {
                 BoardGrid.GetInstance().Cells[i].GetComponent<ContentTail>().content.Add(Content.barrier);
             }
@@ -289,7 +292,7 @@ public class CreatingMap1 : MonoBehaviour
             #region пустой таил
             for (int i = 0; i < 480; i++)
             {
-                if (BoardGrid.GetInstance().Cells[i].GetComponent<ContentTail>().content == null)
+                if (BoardGrid.GetInstance().Cells[i].GetComponent<ContentTail>().content.IsEmpty())
                 {
                     BoardGrid.GetInstance().Cells[i].GetComponent<ContentTail>().content.Add(Content.none);
                 }

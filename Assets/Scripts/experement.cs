@@ -6,9 +6,11 @@ public class experement : MonoBehaviour, IPointerClickHandler
 {
     public void OnPointerClick(PointerEventData eventData)
     {
-       // print(this.GetComponent<ContentTail>().content);
-
-        Debug.Log("234324");
+        foreach (var item in this.GetComponent<ContentTail>().content)
+        {
+            print(item);
+        }
+        print("  ");
     }
 
     

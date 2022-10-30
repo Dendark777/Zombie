@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
+//using Zenject;
 
 namespace Scripts.BoardLogic
 {
@@ -21,7 +21,24 @@ namespace Scripts.BoardLogic
 
         [SerializeField] private List<Cell> _cells;
 
-        private readonly BoardFactory _factory = new();
+        public List<Cell> Cells => _cells;
+
+        private static BoardGrid _instance;
+        public static BoardGrid Instance => _instance ??= FindObjectOfType<BoardGrid>();
+        private void Awake()
+        {
+            if (_instance != null)
+                Destroy(gameObject);
+
+                _instance = this;
+        }
+
+        public static BoardGrid GetInstance() 
+        {
+            return _instance;
+        } 
+
+
 
         private void OnValidate()
         {
@@ -37,9 +54,20 @@ namespace Scripts.BoardLogic
         [ContextMenu("Create")]
         public void Create()
         {
+            int number = 0;
             Clear();
+            for (int x = 0; x < _size.x; x++)
+            {
+                for (int y = 0; y < _size.y; y++)
+                {
+                    Vector3 position = new(x * _spacing, y * _spacing);
+                    Cell cell = Object.Instantiate(_prefab, position + _root.position, Quaternion.identity, _root);
+                    cell.Initialize(new Vector2Int(x, y), number);
+                    _cells.Add(cell);
+                    number++;
+                }
+            }
 
-            _cells = _factory.Create(_prefab, _size, _spacing, _root);
         }
 
         [ContextMenu("Очистить")]
@@ -51,27 +79,6 @@ namespace Scripts.BoardLogic
 
                 _cells.RemoveAt(i);
             }
-        }
-    }
-
-    public class BoardFactory : IFactory <Cell, Vector2Int, float, Transform, List<Cell>>
-    {
-        public List<Cell> Create(Cell prefab, Vector2Int size, float spacing, Transform root) 
-        {
-            List<Cell> cells = new();
-
-            for (int x = 0; x < size.x; x++)
-            {
-                for (int y = 0; y < size.y; y++)
-                {
-                    Vector3 position = new(x * spacing, y * spacing);
-                    Cell cell = Object.Instantiate(prefab, position + root.position, Quaternion.identity, root);
-                    cell.Initialize(new Vector2Int(x, y));
-                    cells.Add(cell);
-                }
-            }
-
-            return cells;
         }
     }
 

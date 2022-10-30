@@ -13,11 +13,13 @@ namespace Scripts.BoardLogic
         public GameObject GameObject => _gameObject;
 
 
-        internal void Initialize(Vector2Int position)
+        internal void Initialize(Vector2Int position, int number)
         {
+            
             _position = position;
 
-            _gameObject.name = $"X: {position.x}, Y: {position.y}";
+            _gameObject.name = $"Tail X: {position.x}, Y: {position.y} nom {number}";
+           
         }
     }
 }

@@ -6,14 +6,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using static UnityEngine.UI.CanvasScaler;
 
 namespace Assets.Scripts.MonoBehaviors.Units
 {
 
-    public class Unit : MonoBehaviour
+    public class Unit : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [Header("Data")]
-        [SerializeField] private List<Vector2Int> _moves;
+        [SerializeField] private List<Cell> _moves;
         [SerializeField] private List<Vector2Int> _attackMoves;
 
 
@@ -32,57 +34,21 @@ namespace Assets.Scripts.MonoBehaviors.Units
         [SerializeField] private int _actionCount;
         [SerializeField] private int _cellPerAction;
 
-        public List<Vector2Int> Moves => _moves;
+        private GameboardData _gameboardData;
+
+        public List<Cell> Moves => _moves;
+        public int CountCellsMove => _actionCount * _cellPerAction;
         public List<Vector2Int> AttackMoves => _attackMoves;
-        private readonly int[] znak = new[] { 1, -1 };
         public Transform Transform => _transform;
 
         private void Awake()
         {
             _currentItem = _itemDatabase.GetNext();
-            CalculationAttack();
-            CalculationMove();
         }
 
-        private void CalculationMove()
+        private void Start()
         {
-            Moves.Clear();
-            for (int f = 0; f < 2; f++)
-            {
-
-                for (int i = 1; i <= _actionCount * _cellPerAction; i++)
-                {
-                    _moves.Add(new Vector2Int(i * znak[f], 0));
-                    _moves.Add(new Vector2Int(0, i * znak[f]));
-                }
-            }
-            for (int i = 1; i <= _actionCount; i++)
-            {
-                _moves.Add(new Vector2Int(i, i));
-                _moves.Add(new Vector2Int(-1 * i, -1 * i));
-                _moves.Add(new Vector2Int(-1 * i, i));
-                _moves.Add(new Vector2Int(i, -1 * i));
-            }
-        }
-        private void CalculationAttack()
-        {
-            AttackMoves.Clear();
-            for (int f = 0; f < 2; f++)
-            {
-
-                for (int i = _currentItem.MinRadius; i <= _currentItem.MaxRadius; i++)
-                {
-                    _attackMoves.Add(new Vector2Int(i * znak[f], 0));
-                    _attackMoves.Add(new Vector2Int(0, i * znak[f]));
-                }
-            }
-            for (int i = 1; i <= _currentItem.MaxRadius/2; i++)
-            {
-                _attackMoves.Add(new Vector2Int(i, i));
-                _attackMoves.Add(new Vector2Int(-1 * i, -1 * i));
-                _attackMoves.Add(new Vector2Int(-1 * i, i));
-                _attackMoves.Add(new Vector2Int(i, -1 * i));
-            }
+            _gameboardData = GameboardData.Instance;
         }
 
         public void FindCell()
@@ -112,5 +78,53 @@ namespace Assets.Scripts.MonoBehaviors.Units
             cell.SetUnit(this);
             _cell = cell;
         }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            print("Клик по персонажу");
+            CalculationMove();
+            CalculationAttack();
+            _cell.OnPointerClick(eventData);
+            foreach (var cell in _moves)
+            {
+                cell.SetMoving();
+            }
+        }
+
+        private void CalculationMove()
+        {
+            Moves.Clear();
+            var cells = _gameboardData.GetCells(_cell, _actionCount * _cellPerAction);
+            foreach (var item in cells)
+            {
+                Moves.Add(item);
+            }
+        }
+        private void CalculationAttack()
+        {
+            AttackMoves.Clear();
+            var cells = _gameboardData.GetCells(_cell, _currentItem.MaxRadius);
+            foreach (var item in cells.Distinct())
+            {
+                AttackMoves.Add(item.Position);
+            }
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            _cell.OnPointerEnter(eventData);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            _cell.OnPointerEnter(eventData);
+        }
+
+
+        //public void MoveUnit(Cell cell)
+        //{
+        //    _unit.Initialize(cell);
+        //    _selectedCell.Unselect();
+        //}
     }
 }

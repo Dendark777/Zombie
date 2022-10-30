@@ -1,6 +1,8 @@
 ﻿using Assets.Scripts.MonoBehaviors.Units;
 using Assets.Scripts.SateMachines.Cells;
 using System;
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -24,6 +26,8 @@ namespace Assets.Scripts.MonoBehaviors.Cells
         [SerializeField] private Vector2Int _position;
         [SerializeField] private Unit _unit;
         [SerializeField] private bool _haveUnit;
+        [SerializeField] private List<Cell> _neighbours;
+        [SerializeField] private int _distance;
         [Header("Components")]
         [SerializeField] private GameObject _gameObject;
         [SerializeField] private Transform _transform;
@@ -36,10 +40,20 @@ namespace Assets.Scripts.MonoBehaviors.Cells
         private MovingState _movingState;
         private AttackState _attackState;
         public GameObject GameObject => _gameObject;
+        public int Weight
+        {
+            get
+            {
+
+                return 1;
+            }
+        }
         public IState CurrentState => _stateMachine.CurrentState;
+        public List<Cell> Neighbours => _neighbours;
 
         public DefaultState DefaultState => _defaultState;
         public SelectState SelectState => _selectState;
+        public int Distance => _distance;
 
 
         private bool _pointerEnter;
@@ -130,6 +144,19 @@ namespace Assets.Scripts.MonoBehaviors.Cells
         public void SetDefault()
         {
             _stateMachine.ChangeState(DefaultState);
+        }
+
+        public void SetNeighbours(List<Cell> neighbours)
+        {
+            _neighbours = neighbours;
+        }
+        public void SetDistance(int distance)
+        {
+            if (_distance == 0 || _distance > distance)
+            {
+                _distance = distance;
+
+            }
         }
     }
 }

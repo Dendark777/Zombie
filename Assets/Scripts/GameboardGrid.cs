@@ -3,6 +3,8 @@ using Assets.Scripts.SateMachines.Cells;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -13,14 +15,19 @@ public class GameboardGrid : MonoBehaviour
     [SerializeField] private Cell _prefab;
     [SerializeField] private Transform _root;
     [SerializeField] private List<Cell> _cells;
+    private GameboardData _gameboardData;
 
-    private readonly GameboardFactory _factory = new();
+    public List<Cell> Cells => _cells;
 
+    private void Start()
+    {
+        _gameboardData = GameboardData.Instance;
+    }
     private void OnValidate()
     {
-        _size = new((int)Mathf.Clamp(_size.x,0,Mathf.Infinity), (int)Mathf.Clamp(_size.y,0,Mathf.Infinity));
-        _spacing = Mathf.Clamp(_spacing,0,Mathf.Infinity);
-        if(_root != null)
+        _size = new((int)Mathf.Clamp(_size.x, 0, Mathf.Infinity), (int)Mathf.Clamp(_size.y, 0, Mathf.Infinity));
+        _spacing = Mathf.Clamp(_spacing, 0, Mathf.Infinity);
+        if (_root != null)
         {
             _root = transform;
         }
@@ -29,8 +36,35 @@ public class GameboardGrid : MonoBehaviour
     public void Create()
     {
         Clear();
-        _cells = _factory.Create(_prefab, _size, _spacing, _root);
+        for (int x = 0; x < _size.x; x++)
+        {
+            for (int y = 0; y < _size.y; y++)
+            {
+                Vector3 position = new Vector3(x * _spacing, y * _spacing);
+                Cell cell = Instantiate(_prefab, position + _root.position, Quaternion.identity, _root);
+                cell.Initialize(new Vector2Int(x, y));
+                _cells.Add(cell);
+            }
+        }
+        SetNeighbours();
+        _gameboardData.Cells = _cells;
     }
+
+    public void SetNeighbours()
+    {
+        int x;
+        int y;
+        foreach (var cell in _cells)
+        {
+            x = cell.Position.x;
+            y = cell.Position.y;
+            cell.SetNeighbours(_cells.Where(c => (c.Position.x == x - 1 && c.Position.y == y) ||
+                                                 (c.Position.x == x + 1 && c.Position.y == y) ||
+                                                 (c.Position.x == x && c.Position.y == y - 1) ||
+                                                 (c.Position.x == x && c.Position.y == y + 1)).ToList());
+        }
+    }
+
     [ContextMenu("Clear")]
     public void Clear()
     {
@@ -39,5 +73,6 @@ public class GameboardGrid : MonoBehaviour
             DestroyImmediate(_cells[i].GameObject);
             _cells.RemoveAt(i);
         }
+        _gameboardData.Cells.Clear();
     }
 }

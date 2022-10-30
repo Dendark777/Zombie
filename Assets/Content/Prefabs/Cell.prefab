@@ -128,9 +128,10 @@ MonoBehaviour:
   _position: {x: 0, y: 0}
   _unit: {fileID: 0}
   _haveUnit: 0
+  _neighbours: []
+  Text: {fileID: 0}
   _gameObject: {fileID: 3584132364477102244}
   _transform: {fileID: 9032033532539985664}
-  _states: 
 --- !u!114 &6051752645511850264
 MonoBehaviour:
   m_ObjectHideFlags: 0

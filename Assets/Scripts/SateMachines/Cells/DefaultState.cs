@@ -29,7 +29,6 @@ public class DefaultState : IState
 
     public void Update()
     {
-        throw new System.NotImplementedException();
     }
     private void Select(PointerEventData eventData)
     {

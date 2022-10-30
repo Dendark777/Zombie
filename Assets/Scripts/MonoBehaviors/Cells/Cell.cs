@@ -155,7 +155,7 @@ namespace Assets.Scripts.MonoBehaviors.Cells
             if (_distance == 0 || _distance > distance)
             {
                 _distance = distance;
-
+                print("das");
             }
         }
     }

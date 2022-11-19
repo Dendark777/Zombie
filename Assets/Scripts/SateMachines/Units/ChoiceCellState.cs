@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.MonoBehaviors.Cells;
+using Assets.Scripts.MonoBehaviors.Units;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,32 +7,31 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine.EventSystems;
 
-namespace Assets.Scripts.SateMachines.Cells
+namespace Assets.Scripts.SateMachines.Units
 {
-    public class AttackState : IState
+    public class ChoiceCellState : StateMachine
     {
         private readonly StateMachine _stateMachine;
-        private readonly Cell _cell;
-        public AttackState(StateMachine stateMachine, Cell cell)
+        private readonly Unit _unit;
+        public ChoiceCellState(StateMachine stateMachine, Unit unit)
         {
             _stateMachine = stateMachine;
-            _cell = cell;
+            _unit = unit;
         }
 
         public void Enter()
         {
-            _cell.PointerClick += Attack;
+            _unit.PointerClickUnit += Attack;
         }
 
         public void Exit()
         {
-            _cell.PointerClick -= Attack;
+            _unit.PointerClickUnit -= Attack;
         }
 
         private void Attack(PointerEventData eventData)
         {
-            _cell.ClickAction?.Invoke(_cell);
+            //_unit.ChoiceCell?.Invoke(_unit);
         }
-
     }
 }

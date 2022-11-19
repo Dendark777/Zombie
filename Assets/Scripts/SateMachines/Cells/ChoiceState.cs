@@ -1,18 +1,18 @@
-﻿using System;
+﻿using Assets.Scripts.MonoBehaviors.Cells;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine.EventSystems;
-using Assets.Scripts.MonoBehaviors.Cells;
 
 namespace Assets.Scripts.SateMachines.Cells
 {
-    public class MovingState : IState
+    public class ChoiceState : IState
     {
         private readonly StateMachine _stateMachine;
         private readonly Cell _cell;
-        public MovingState(StateMachine stateMachine, Cell cell)
+        public ChoiceState(StateMachine stateMachine, Cell cell)
         {
             _stateMachine = stateMachine;
             _cell = cell;
@@ -20,18 +20,18 @@ namespace Assets.Scripts.SateMachines.Cells
 
         public void Enter()
         {
-            _cell.PointerClick += Moving;
+            _cell.PointerClick += ChoiceCell;
         }
 
         public void Exit()
         {
-            _cell.PointerClick -= Moving;
+            _cell.PointerClick -= ChoiceCell;
         }
 
-        private void Moving(PointerEventData eventData)
+        private void ChoiceCell(PointerEventData eventData)
         {
-            GameManager.Instance.MoveUnit(_cell);
             _cell.ClickAction?.Invoke(_cell);
         }
+
     }
 }

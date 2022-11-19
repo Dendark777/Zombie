@@ -15,23 +15,15 @@ public class GameboardGrid : MonoBehaviour
     [SerializeField] private Cell _prefab;
     [SerializeField] private Transform _root;
     [SerializeField] private List<Cell> _cells;
-    private GameboardData _gameboardData;
 
     public List<Cell> Cells => _cells;
 
-    private void Start()
+    private void Awake()
     {
-        _gameboardData = GameboardData.Instance;
+        new GameboardData().GetInstance().Cells = Cells;
+        GameManager.Instance.Cells = _cells;
     }
-    private void OnValidate()
-    {
-        _size = new((int)Mathf.Clamp(_size.x, 0, Mathf.Infinity), (int)Mathf.Clamp(_size.y, 0, Mathf.Infinity));
-        _spacing = Mathf.Clamp(_spacing, 0, Mathf.Infinity);
-        if (_root != null)
-        {
-            _root = transform;
-        }
-    }
+
     [ContextMenu("Create")]
     public void Create()
     {
@@ -47,7 +39,6 @@ public class GameboardGrid : MonoBehaviour
             }
         }
         SetNeighbours();
-        _gameboardData.Cells = _cells;
     }
 
     public void SetNeighbours()
@@ -73,6 +64,6 @@ public class GameboardGrid : MonoBehaviour
             DestroyImmediate(_cells[i].GameObject);
             _cells.RemoveAt(i);
         }
-        _gameboardData.Cells.Clear();
+        _cells.Clear();
     }
 }

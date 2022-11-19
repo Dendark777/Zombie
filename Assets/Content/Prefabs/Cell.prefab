@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5081733800530003242}
   - component: {fileID: 1185190046351501125}
   - component: {fileID: 6051752645511850264}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ MonoBehaviour:
   _unit: {fileID: 0}
   _haveUnit: 0
   _neighbours: []
-  Text: {fileID: 0}
+  _distance: 0
   _gameObject: {fileID: 3584132364477102244}
   _transform: {fileID: 9032033532539985664}
 --- !u!114 &6051752645511850264

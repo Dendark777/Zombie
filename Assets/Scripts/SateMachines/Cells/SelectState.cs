@@ -27,11 +27,6 @@ public class SelectState : IState
         _cell.PointerClick -= Unselect;
     }
 
-    public void Update()
-    {
-        throw new System.NotImplementedException();
-    }
-
     private void Unselect(PointerEventData eventData)
     {
         _stateMachine.ChangeState(_cell.DefaultState);

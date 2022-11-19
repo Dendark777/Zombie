@@ -9,7 +9,6 @@ using UnityEngine;
 
 public class GameboardData : MonoBehaviour
 {
-    private Cell[] _cells;
     private Cell _selectedCell;
     private bool _haveSelectrdCell;
 
@@ -17,30 +16,39 @@ public class GameboardData : MonoBehaviour
     public List<Unit> Units { get; set; }
     public static GameboardData Instance { get; private set; }
 
-
     private void Awake()
+    {
+        GetInstance();
+    }
+
+    public GameboardData GetInstance()
     {
         if (Instance == null)
         {
             Instance = this;
         }
-        Cells = new List<Cell>();
-        foreach (var cell in _cells)
+        return Instance;
+    }
+
+    private void Start()
+    {
+
+        foreach (var cell in Cells)
         {
-            cell.StateChanged += TrySetSelected;
+            //cell.StateChanged += TrySetSelected;
             //cell.StateChanged += TryRenderMoves;
-            //cell.ClickMoving += MoveUnit;
+            //cell.ClickAction += MoveUnit;
         }
     }
 
     private void OnDisable()
     {
-        foreach (var cell in _cells)
-        {
-            cell.StateChanged -= TrySetSelected;
-            //cell.StateChanged -= TryRenderMoves;
-            //cell.ClickMoving -= MoveUnit;
-        }
+        //foreach (var cell in _cells)
+        //{
+        //    cell.StateChanged -= TrySetSelected;
+        //    //cell.StateChanged -= TryRenderMoves;
+        //    //cell.ClickMoving -= MoveUnit;
+        //}
     }
 
     private void TrySetSelected(IState state, IState oldState, Cell cell)
@@ -111,20 +119,25 @@ public class GameboardData : MonoBehaviour
 
     private Cell FindCell(Vector2Int unitPosition, Vector2Int move, bool haveUnit)
     {
-        return _cells.FirstOrDefault(c => c.Position == move + unitPosition && c.HaveUnit == haveUnit);
+        return Cells.FirstOrDefault(c => c.Position == move + unitPosition && c.HaveUnit == haveUnit);
     }
 
-    public List<Cell> GetCells(Cell cell,int depth, int distance = 0)
+    public List<Cell> GetCells(Cell cell, int depth, int distance = 0)
     {
         List<Cell> cells = new();
         depth -= cell.Weight;
+        cell.SetDistance(distance);
         foreach (Cell neighbour in cell.Neighbours)
         {
-            neighbour.SetDistance(distance);
+            if (neighbour.Distance != -1 && neighbour.Distance <= (cell.Distance + neighbour.Weight))
+            {
+                continue;
+            }
+            neighbour.SetDistance(distance + neighbour.Weight);
             cells.Add(neighbour);
             if (depth > 0)
             {
-                cells.AddRange(GetCells(neighbour, depth, distance + 1));
+                cells.AddRange(GetCells(neighbour, depth, neighbour.Distance));
 
             }
         }

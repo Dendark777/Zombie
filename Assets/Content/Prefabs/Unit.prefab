@@ -72,9 +72,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -189192983
+  m_SortingLayer: 1
+  m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -98,8 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53adbb6db7fea05438fc922c9da35654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moves: []
-  _attackMoves: []
   _itemDatabase: {fileID: 11400000, guid: 0b1817e7cba1a274e8cbcb70044cf9c6, type: 2}
   _currentItem:
     <Name>k__BackingField: 
@@ -107,10 +105,10 @@ MonoBehaviour:
     <MaxRadius>k__BackingField: 0
   _cell: {fileID: 0}
   _spacing: 0
-  _ganeObject: {fileID: 8852713978307646700}
-  _transform: {fileID: 8852713978307646702}
   _actionCount: 6
   _cellPerAction: 1
+  _moves: []
+  _attackMoves: []
 --- !u!61 &5830525544000491853
 BoxCollider2D:
   m_ObjectHideFlags: 0

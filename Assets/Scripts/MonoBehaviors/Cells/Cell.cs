@@ -9,19 +9,9 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.MonoBehaviors.Cells
 {
+    [Serializable]
     public class Cell : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        public event StateHandler StateChanged;
-        public event PointerStateHandler PointerChanged;
-
-        public event PointerHandler PointerClick;
-
-        public Action<Cell> ClickMoving;
-
-        public delegate void StateHandler(IState state, IState oldState, Cell sender);
-
-        public delegate void PointerStateHandler(bool pointerEnter, Cell sender);
-        public delegate void PointerHandler(PointerEventData eventData);
         [Header("Data")]
         [SerializeField] private Vector2Int _position;
         [SerializeField] private Unit _unit;
@@ -32,13 +22,26 @@ namespace Assets.Scripts.MonoBehaviors.Cells
         [SerializeField] private GameObject _gameObject;
         [SerializeField] private Transform _transform;
 
-
-        private StateMachine _stateMachine;
+                private StateMachine _stateMachine;
 
         private DefaultState _defaultState;
         private SelectState _selectState;
         private MovingState _movingState;
         private AttackState _attackState;
+
+        public event StateHandler StateChanged;
+        public event PointerStateHandler PointerChanged;
+        private bool _pointerEnter;
+
+        public event PointerHandler PointerClick;
+
+        public Action<Cell> ClickAction;
+
+        public delegate void StateHandler(IState state, IState oldState, Cell sender);
+
+        public delegate void PointerStateHandler(bool pointerEnter, Cell sender);
+        public delegate void PointerHandler(PointerEventData eventData);
+
         public GameObject GameObject => _gameObject;
         public int Weight
         {
@@ -50,24 +53,18 @@ namespace Assets.Scripts.MonoBehaviors.Cells
         }
         public IState CurrentState => _stateMachine.CurrentState;
         public List<Cell> Neighbours => _neighbours;
-
         public DefaultState DefaultState => _defaultState;
         public SelectState SelectState => _selectState;
         public int Distance => _distance;
-
-
-        private bool _pointerEnter;
-
         public Unit Unit => _unit;
         public bool HaveUnit => _haveUnit;
         public bool PointerEnter => _pointerEnter;
-
         public Vector2Int Position => _position;
 
         private void Awake()
         {
             _stateMachine = new();
-
+            _distance = -1;
             _stateMachine.OnStateChanged += (state, oldState) => StateChanged?.Invoke(state, oldState, this);
 
             _defaultState = new DefaultState(_stateMachine, this);
@@ -78,13 +75,6 @@ namespace Assets.Scripts.MonoBehaviors.Cells
 
         }
 
-        private void OnValidate()
-        {
-            if (_gameObject == null)
-            {
-                _gameObject = gameObject;
-            }
-        }
         #region Взаимодействие с клеткой
         public void Initialize(Vector2Int position)
         {
@@ -118,7 +108,7 @@ namespace Assets.Scripts.MonoBehaviors.Cells
         }
         #endregion
 
-        public void SetUnit(Unit unit = null)
+        public void UnitEnterToCell(Unit unit = null)
         {
             if (unit == null)
             {
@@ -126,9 +116,14 @@ namespace Assets.Scripts.MonoBehaviors.Cells
                 _unit = null;
                 return;
             }
-            unit.Transform.position = new Vector3(_transform.position.x, _transform.position.y, -1);
+            unit.gameObject.transform.position = new Vector3(_transform.position.x, _transform.position.y, -1);
             _unit = unit;
             _haveUnit = true;
+        }
+
+        public void UnitExitFromCell()
+        {
+            _unit = null;
         }
 
         internal void SetMoving()
@@ -143,6 +138,7 @@ namespace Assets.Scripts.MonoBehaviors.Cells
 
         public void SetDefault()
         {
+            _distance = -1;
             _stateMachine.ChangeState(DefaultState);
         }
 
@@ -150,13 +146,9 @@ namespace Assets.Scripts.MonoBehaviors.Cells
         {
             _neighbours = neighbours;
         }
-        public void SetDistance(int distance)
+        public void SetDistance(int distance = -1)
         {
-            if (_distance == 0 || _distance > distance)
-            {
-                _distance = distance;
-                print("das");
-            }
+            _distance = distance;
         }
     }
 }

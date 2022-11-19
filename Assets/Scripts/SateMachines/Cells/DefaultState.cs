@@ -27,9 +27,6 @@ public class DefaultState : IState
         _cell.PointerClick -= Select;
     }
 
-    public void Update()
-    {
-    }
     private void Select(PointerEventData eventData)
     {
         _stateMachine.ChangeState(_cell.SelectState);
